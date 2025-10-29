@@ -1,5 +1,11 @@
-Overview
+# Online Banking System 
 
+Project Title
+---
+Online Banking System 
+***
+Description
+---
 The Online Banking System is a simple web-based banking application built using ASP.NET MVC and Entity Framework with a SQLite database
 
 It allows users to register, log in, manage their accounts, deposit or withdraw funds, and view their transaction history — all through a clean and user-friendly dashboard.
@@ -21,6 +27,7 @@ Key Features
 - Input Validation & Error Handling: Forms validate required fields and numeric inputs (e.g., non-negative amounts), with friendly error messages and server-side checks to prevent invalid operations
 
 - Fully Functional Front-End using Razor Views: The entire user interface is built using ASP.NET MVC Razor Views, providing dynamic HTML pages that display real-time data (like balance, transactions, and user info). Razor syntax allows seamless integration of C# logic within HTML, enabling responsive and data-driven pages without relying heavily on JavaScript
+***
 
 Tech Stack 
 
@@ -32,8 +39,9 @@ Tech Stack
 | Database (local dev) | SQLite (`banking.db`)               |                     |
 | Tools                | Visual Studio / VS Code, dotnet CLI |
 
+***
  Installation Steps
-
+---
 Since this is a .NET MVC project, ensure the following tools are installed on your system before running the app.
 
  Prerequisites
@@ -64,9 +72,10 @@ git clone https://github.com/manavnaik5/OnlineBankingApp.git
  dotnet ef database update
  ```
  Note: This will automatically generate the (e.g., OnlineBankingApp.db) file inside your project’s Data folder
+***
 
 How to Run the Project
-
+---
 You can run the project using either your IDE or the command line.
 
 1. Using Visual Studio (Recommended)
