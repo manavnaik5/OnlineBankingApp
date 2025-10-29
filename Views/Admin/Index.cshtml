@@ -1,0 +1,58 @@
+@model IEnumerable<OnlineBankingApp.Models.ApplicationUser>
+
+@{
+    ViewData["Title"] = "User Management";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header bg-danger text-white">
+                <h3 class="card-title mb-0">User Management</h3>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Role</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var user in Model)
+                            {
+                                <tr>
+                                    <td>@user.FullName</td>
+                                    <td>@user.Email</td>
+                                    <td>
+                                        @if (await UserManager.IsInRoleAsync(user, "Admin"))
+                                        {
+                                            <span class="badge bg-danger">Admin</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-primary">User</span>
+                                        }
+                                    </td>
+                                    <td>
+                                        <a asp-action="UserDetails" asp-route-id="@user.Id" class="btn btn-sm btn-info">Details</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-3">
+            <a asp-action="Transactions" class="btn btn-secondary">View All Transactions</a>
+        </div>
+    </div>
+</div>
+
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<OnlineBankingApp.Models.ApplicationUser> UserManager

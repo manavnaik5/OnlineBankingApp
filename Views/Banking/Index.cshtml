@@ -1,0 +1,68 @@
+@model OnlineBankingApp.ViewModels.BankingViewModel
+
+@{
+    ViewData["Title"] = "My Account";
+}
+
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h3 class="card-title mb-0">Account Information</h3>
+            </div>
+            <div class="card-body">
+                @if (TempData["Success"] != null)
+                {
+                    <div class="alert alert-success">
+                        @TempData["Success"]
+                    </div>
+                }
+
+                <div class="row mb-3">
+                    <div class="col-sm-4"><strong>Account Holder:</strong></div>
+                    <div class="col-sm-8">@Model.FullName</div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-sm-4"><strong>Account Number:</strong></div>
+                    <div class="col-sm-8">@Model.AccountNumber</div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-sm-4"><strong>Current Balance:</strong></div>
+                    <div class="col-sm-8">
+                        <span class="h4 text-success">$@Model.Balance.ToString("F2")</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mt-4">
+            <div class="card-header bg-secondary text-white">
+                <h4 class="card-title mb-0">Quick Actions</h4>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-3 mb-3">
+                        <a href="@Url.Action("Deposit", "Banking")" class="btn btn-success btn-lg w-100">
+                            <i class="fas fa-plus-circle"></i> Deposit
+                        </a>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <a href="@Url.Action("Withdraw", "Banking")" class="btn btn-warning btn-lg w-100">
+                            <i class="fas fa-minus-circle"></i> Withdraw
+                        </a>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <a href="@Url.Action("Transfer", "Banking")" class="btn btn-info btn-lg w-100">
+                            <i class="fas fa-exchange-alt"></i> Transfer
+                        </a>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <a href="@Url.Action("Transactions", "Banking")" class="btn btn-primary btn-lg w-100">
+                            <i class="fas fa-history"></i> History
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

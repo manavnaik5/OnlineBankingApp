@@ -1,2 +1,3 @@
-# OnlineBankingApp
-ASP.NET Core MVC Online Banking System (SQLite)
+# Your local README content
+# OnlineBankingSystem
+Initial commit - OnlineBankingSystem

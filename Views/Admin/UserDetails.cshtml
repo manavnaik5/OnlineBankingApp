@@ -1,0 +1,104 @@
+@model OnlineBankingApp.Models.ApplicationUser
+
+@{
+    ViewData["Title"] = "User Details";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header bg-info text-white">
+                <h3 class="card-title mb-0">User Details</h3>
+            </div>
+            <div class="card-body">
+                <div class="row mb-3">
+                    <div class="col-sm-4"><strong>Full Name:</strong></div>
+                    <div class="col-sm-8">@Model.FullName</div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-sm-4"><strong>Email:</strong></div>
+                    <div class="col-sm-8">@Model.Email</div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-sm-4"><strong>Date of Birth:</strong></div>
+                    <div class="col-sm-8">@Model.DateOfBirth.ToString("d")</div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-sm-4"><strong>Address:</strong></div>
+                    <div class="col-sm-8">@Model.Address</div>
+                </div>
+                @if (ViewBag.Account != null)
+                {
+                    <div class="row mb-3">
+                        <div class="col-sm-4"><strong>Account Number:</strong></div>
+                        <div class="col-sm-8">@ViewBag.Account.AccountNumber</div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-sm-4"><strong>Balance:</strong></div>
+                        <div class="col-sm-8">$@ViewBag.Account.Balance.ToString("F2")</div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-sm-4"><strong>Account Status:</strong></div>
+                        <div class="col-sm-8">
+                            <span class="badge bg-@(ViewBag.Account.IsActive ? "success" : "danger")">
+                                @(ViewBag.Account.IsActive ? "Active" : "Inactive")
+                            </span>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+
+        @if (ViewBag.Transactions != null && ViewBag.Transactions.Count > 0)
+        {
+            <div class="card mt-4">
+                <div class="card-header bg-secondary text-white">
+                    <h4 class="card-title mb-0">Recent Transactions</h4>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Type</th>
+                                    <th>Description</th>
+                                    <th>Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var transaction in ViewBag.Transactions)
+                                {
+                                    <tr>
+                                        <td>@transaction.TransactionDate.ToString("g")</td>
+                                        <td>
+                                            <span class="badge bg-@(transaction.Type == OnlineBankingApp.Models.TransactionType.Deposit ? "success" : transaction.Type == OnlineBankingApp.Models.TransactionType.Withdrawal ? "warning" : "info")">
+                                                @transaction.Type
+                                            </span>
+                                        </td>
+                                        <td>@transaction.Description</td>
+                                        <td class="@(transaction.Type == OnlineBankingApp.Models.TransactionType.Deposit ? "text-success" : "text-danger")">
+                                            @(transaction.Type == OnlineBankingApp.Models.TransactionType.Deposit ? "+" : "-")$@transaction.Amount.ToString("F2")
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        }
+
+        <div class="mt-3">
+            @if (ViewBag.Account != null)
+            {
+                <form asp-action="ToggleUserStatus" asp-route-id="@Model.Id" method="post" class="d-inline">
+                    <button type="submit" class="btn btn-warning">
+                        @(ViewBag.Account.IsActive ? "Deactivate" : "Activate") Account
+                    </button>
+                </form>
+            }
+            <a asp-action="Index" class="btn btn-secondary ms-2">Back to Users</a>
+        </div>
+    </div>
+</div>
